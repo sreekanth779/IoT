@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login</title>
+    <link rel="icon" href="{% static 'images/logo_new.png' %}" type="image/png">
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Nunito&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Fugaz One";
+        }
+    </style>
+</head>
+
+<body>
+    {% if messages %}
+    <ul>
+        {% for message in messages%}
+        <li>{{message}}</li>
+        {% endfor%}
+    </ul>
+    {% endif %}
+    <!-- container start -->
+    <div class="flex flex-col justify-center items-center min-h-screen"
+        style="background: linear-gradient(90deg, #6C1A7F, rgb(91, 2, 150)); width: auto;">
+        <!-- sign in box start -->
+        <div class="flex flex-col space-y-3 p-8 justify-center item-center shadow-xl rounded-lg shadow-grey-600"
+            style="background-color:white">
+            <!-- title start -->
+            <h1 class="text-lg  uppercase my-3" style="text-align: center;">sign in</h1>
+            {% if page == 'login' %}
+            <!-- form start -->
+            <form action="" method="post">
+                {% csrf_token %}
+            <div class="flex flex-col space-y-6 justify-center items-stretch">
+                <!-- section 2 -->
+                <!-- username start -->
+                <div class="relative">
+                    <input type="text"
+                        class="border-b-2 z-50 py-1 duration-500 block w-full border-slate-500 focus:outline-none focus:border-b-3 focus:border-purple-600 transition-color peer"
+                        id="username" name="username" />
+                    <label
+                        class="absolute left-0 top-1 duration-500 uppercase peer-focus:-top-4 peer-focus:text-purple-600 transition-all peer-focus:text-xs"
+                        for="username">username</label>
+                </div>
+                <!-- username end -->
+                <!-- password start -->
+                <div class="relative">
+                    <input type="text"
+                        class="border-b-2 z-50 py-1 border-slate-500 block w-full focus:outline-none focus:border-b-3 focus:border-purple-600 transition-color peer"
+                        id="password" name="password" />
+                    <label
+                        class="absolute left-0 top-1 uppercase peer-focus:-top-4 peer-focus:text-purple-600 transition-all peer-focus:text-xs"
+                        for="password">password</label>
+                </div>
+                <!-- password end  -->
+                <!-- remember start -->
+                <div class="mr-auto">
+                    <input type="checkbox" name="remember" id="remember" />
+                    <label for="remember" class="capitalize">remember me</label>
+                </div>
+                <!-- remember end -->
+                <!-- submit start -->
+                <div class="flex flex-col items-end ml-auto">
+                    <button type="submit" 
+                        class="px-6 py-2 bg-slate-800 text-white text-bold duration-500 font-sans font-bold hover:bg-purple-600 transition-color uppercase">
+                        Login
+                    </button>
+                </div>
+                <!-- submit end -->
+                <!-- spliter start -->
+                <div class="flex flex-row w-full items-center space-x-1">
+                    <div class="border-b-2 px-16 border-slate-1000"></div>
+                    <div class="border-b-2 px-16 border-slate-1000"></div>
+                </div>
+                <!-- spliter end -->
+                <!-- section 2 open -->
+
+                <!-- section 2 end -->
+            </div>
+            </form>
+            <p> Haven't signed up yet?</p>
+        <a href="{% url 'register' %}">Sign up</a>
+            {% else %}
+            <div>
+                <form action="" method="post">
+                    {% csrf_token %}
+        
+                    {% for field in form %}
+                    <label>{{field.label}}</label>
+                    {{field}}
+                    {% endfor %}
+                    <!-- <label for="">Username</label>
+                    <input type="text" name = "username" placeholder="Enter Username">
+                    <label for="">Password:</label>
+                    <input type="password" name="password" placeholder="Enter password"> -->
+        
+                    <input type="submit" value="Register">
+                </form>
+                <p>Already signed up?</p>
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+            {% endif %}
+            <!-- form end -->
+        </div>
+        <!-- sign in box end -->
+    </div>
+    <!-- container end -->
+</body>
+
+</html>
+

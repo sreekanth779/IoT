@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>About us</title>
+  <link rel="icon" href="{% static 'images/logo_new.png' %}" type="image/png">
+
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+
+        @import url('https://fonts.googleapis.com/css?family=Exo+2:700');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+
+
+        
+
+        body {
+        /* background:url("{% static 'images/backbroung.jpg' %}"); */
+
+        text-align: center;
+        }
+        .jam{
+
+          background:url("{% static 'images/backbroung.jpg' %}");
+          height: auto;
+          
+
+        }
+       
+        .about-copy {
+          max-width: 700px;
+          margin: 0 auto;
+        }
+
+        .about-project-description {
+          text-align: start;
+        }
+
+        .emphasis {
+          font-weight: 700;
+        }
+       
+        .about-copy,p{
+          margin-bottom: 10px;
+        }
+
+        
+
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i></i>
+      <span class="logo_name">Mempage</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="{% url 'dashboard' %}">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'analytics' %}" >
+          <i class='bx bx-pie-chart-alt-2' ></i>
+          <span class="links_name">Analytics</span>
+        </a>
+      </li>
+      <li>
+      <a href="{% url 'devices_prediction' %}">
+        <i class='bx bx-bar-chart-alt-2'></i>
+        <span class="links_name">Motion Classification</span>
+      </a>
+    </li>
+      <li>
+        <a href="{% url 'about_page' %}"class="active">
+          <i class='bx bx-user' ></i>
+          <span class="links_name">About</span>
+        </a>
+      </li>
+      <li class="log_out">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">
+          <i class='bx bx-log-in'></i>
+          <span class="links_name">
+            Log out</span>
+        </a>
+        {% else%}
+        <a href="{% url 'login' %}">
+          <i class='bx bx-log-in'></i>
+          <span class="links_name">
+            Log in</span>
+        </a>
+        {% endif %}
+      </li>
+
+    </ul>
+
+  </div>
+
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard" ></span>
+      </div>
+    </nav>
+    <br><br><br>
+    <div class="sales-boxes jam" >
+      <div class="recent-sales box"><br>
+        <div class="title" style="text-align: center;margin-top: 10px; margin-bottom: 10px; font-weight: 20px;">ABOUT US</div><br>
+        
+        <div class='about-copy'>
+          <p class='about-project-description'style="font-size: 1em; font-weight: 300; font-family: 'Merriweather', serif; line-height: 1.6;">
+            <span class="emphasis">Welcome to our motion classification project!</span> We are a team passionate about leveraging technology to improve motion classification and enhance data-driven decision-making processes.
+          </p><br>
+          <h4 style="font-size: .875em; font-weight: 600; font-family: 'Montserrat', sans-serif; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 1px solid rgb(109, 109, 109); text-align: start;">Our Mission</h4>
+          
+          <p class='about-project-description' style="font-size: 1em; font-weight: 300; font-family: 'Merriweather', serif; line-height: 1.6;">
+            Our mission is to develop a robust motion classification system using <span class="emphasis">Raspberry Pi Pico </span>accelerometers and  <span class="emphasis">GPS sensors</span>. By combining real-time sensor data with advanced  <span class="emphasis">analytics</span>, we aim to provide insights into motion patterns and behaviors for various applications, including transportation, sports analytics, and health monitoring.
+          </p><br>
+          <h4 style="font-size: .875em; font-weight: 600; font-family: 'Montserrat', sans-serif; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 1px solid rgb(109, 109, 109); text-align: start;">Meet the Team</h4>
+          
+          <p class='about-project-description' style="font-size: 1em; font-weight: 300; font-family: 'Merriweather', serif; line-height: 1.6;">
+            Sreekanth : Project Lead <br>
+            Sai Kiran: Software Engineer <br>
+            Uday Kiran: Software Engineer
+            
+          </p><br>
+          <h4 style="font-size: .875em; font-weight: 600; font-family: 'Montserrat', sans-serif; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 1px solid rgb(109, 109, 109);text-align: start;">Project Highlights</h4>
+          <p class='about-project-description' style="font-size: 1em; font-weight: 300; font-family: 'Merriweather', serif; line-height: 1.6;">
+            Utilizing Raspberry Pi Pico accelerometers and GPS sensors for data collection.,<br>
+            Implementing real-time data processing and visualization with  <span class="emphasis">Django</span> and Charts.<br>
+            Developing motion classification algorithms for predictive analytics.<br>
+            Building an  <span class="emphasis">interactive dashboard </span>for monitoring and analyzing motion data.
+          </p><br>
+          <h4 style="font-size: .875em; font-weight: 600; font-family: 'Montserrat', sans-serif; letter-spacing: 1.5px; margin-bottom: 20px; text-transform: uppercase; border-bottom: 1px solid rgb(109, 109, 109); text-align: start;">Contact Us</h4>
+          
+          <p class='about-project-description' style="font-size: 1em; font-weight: 300; font-family: 'Merriweather', serif; line-height: 1.6;">
+            We welcome collaborations, feedback, and inquiries. Feel free to reach out to us at  <span class="emphasis"> Sreekanth@mempage.com </span>for more information about our project. <br>
+            Thank you for your interest in our motion classification project!
+            
+          </p><br>
+        </div>
+
+           
+            
+
+       
+    
+
+              
+
+  <script>
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+    sidebarBtn.onclick = function() {
+      sidebar.classList.toggle("active");
+      if(sidebar.classList.contains("active")){
+        sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+      } else {
+        sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="icon" href="{% static 'images/logo_new.png' %}" type="image/png">
+  <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <style>
+       .custom-class {
+      left: 0;
+      top: 0;
+      border: 1px solid #dddddd;
+      padding: 5px;
+      background: #f0f0f0;
+      -webkit-transition: all 0.1s ease-in-out;
+  	-moz-transition: all 0.1s ease-in-out;
+  	-o-transition: all 0.1s ease-in-out;
+  	transition: all 0.1s ease-in-out;
+     }
+
+     .jam{
+
+        background:url("{% static 'images/backbroung.jpg' %}");
+        
+
+
+        }
+        .boxtop:hover{
+          outline: 2px solid lime;
+
+        }
+
+        
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <i></i>
+      <span class="logo_name">Mempage</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="{% url 'dashboard' %}" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+
+
+      <li>
+        <a href="{% url 'analytics' %}">
+          <i class='bx bx-pie-chart-alt-2'></i>
+          <span class="links_name">Analytics</span>
+        </a>
+      </li>
+      <li>
+
+        <a href="{% url 'devices_prediction' %}">
+          <i class='bx bx-bar-chart-alt-2'></i>
+          <span class="links_name">Motion Classification</span>
+        </a>
+      </li>
+
+
+
+      <li>
+        <a href="{% url 'about_page' %}">
+          <i class='bx bx-user'></i>
+          <span class="links_name">About</span>
+        </a>
+      </li>
+
+
+
+
+
+
+      <li class="log_out">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">
+          <i class='bx bx-log-in'></i>
+          <span class="links_name">
+            Log out</span>
+        </a>
+        {% else%}
+        <a href="{% url 'login' %}">
+          <i class='bx bx-log-in'></i>
+          <span class="links_name">
+            Log in</span>
+        </a>
+        {% endif %}
+      </li>
+
+    </ul>
+
+  </div>
+
+
+
+
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Dashboard</span>
+      </div>
+
+
+
+
+      </div>
+
+    </nav>
+    <div class="jam">
+
+    <div class="home-content">
+      <div class="overview-boxes">
+        <div class="box boxtop">
+          <div class="right-side">
+            <div class="box-topic">Number of Sensors Active</div>
+            <div class="number"></div>
+            <div class="indicator">
+
+              <span class="text" style="font-size: 20px; margin: 0px 75px;">
+                {{active_count}}
+                / {{total_count}}</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="box boxtop">
+          <div class="right-side">
+            <div class="box-topic">Data Points</div>
+            <div class="number"></div>
+            <div class="indicator">
+
+              <span class="text"></span>
+            </div>
+          </div>
+
+        </div>
+        <div class="box boxtop">
+          <div class="right-side">
+            <div class="box-topic">Prediction: 
+              {{output_pred}}
+            </div>
+            <div class="number"></div>
+            <div class="indicator">
+
+              <span class="text">
+
+
+                Motion Classification with Rasp Accel<br>
+
+
+              </span>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div class="right-side">
+
+          <div class="number"></div>
+          <div class="indicator">
+
+            <span class="text"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <br>
+    <center>
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">Recent Analysis </div>
+          <div class="sales-details">
+            <ul class="details">
+              <li class="topic">
+
+                <!-- Slide Show -->
+
+
+
+              </li>
+              <label for="cars">Choose a chart:</label>
+
+              <select name="cars" id="cars">
+                <option value="Donut">Donut</option>
+                <option value="Bar">Bar</option>
+                <option value="scatter">scatter</option>
+                <option value="stack">stack</option>
+              </select>
+              <li><a href="#"></a></li>
+              <img src="data:image/png;base64,{{ plot_img1 }}" alt="Matplotlib Plot" width="auto" height="310px" style="transition: transform 0.3s ease-in-out; transform-origin: center; z-index: 2;"
+              onmouseover="this.style.transform = 'scale(1.3)';"
+              onmouseout="this.style.transform = 'scale(1)';" class="custom-class">
+
+              <img src="data:image/png;base64,{{ plot_img2 }}" alt="Matplotlib Plot" width="auto" height="auto" style="transition: transform 0.3s ease-in-out; transform-origin: center;z-index: 0; "
+              onmouseover="this.style.transform = 'scale(1.3)';"
+              onmouseout="this.style.transform = 'scale(1)';"class="custom-class">
+
+              <div><h1>Total devices:{{locat|length}} </h1></div>
+              <div id="map" style="height: 400px; width: auto; margin: 10px 90px; z-index: 0;  box-shadow: 0 1px 1px rgba(0,0,0,0.1), 
+              0 2px 2px rgba(0,0,0,0.1), 
+              0 4px 4px rgba(0,0,0,0.1), 
+              0 8px 8px rgba(0,0,0,0.1),
+              0 8px 8px rgba(0,0,0,0.1);"></div>
+
+              <script>
+                var map = L.map('map').setView([17.385044, 78.486671], 10);
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  maxZoom: 19,
+                  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                }).addTo(map);
+
+                var locations = JSON.parse('{{ all_locations|escapejs }}');
+
+                locations.forEach(function (location) {
+                  var latitude = location.latitude;
+                  var longitude = location.longitude;
+                  var deviceName = location.device_name;
+
+
+                  // Add marker for each location
+                  var marker = L.marker([latitude, longitude]).addTo(map).bindPopup(deviceName);
+                
+
+                });
+
+                
+
+
+              </script>
+
+
+
+
+              <li><a href="#"></a>
+                Placeholder text used to demonstrate the graphic elements of a
+                document or visual presentation.</li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a>
+            </ul>
+    </center><br>
+  
+    <br><br><br><br><br><br><br><br>
+    <center>
+      <script>
+        document.write("<p>" + Date() + "</p>");
+      </script>
+      </li>
+      <center>
+
+        <!-- Footer -->
+        <footer>
+
+          Developed by <a>Sreekanth, Sai Kiran & Uday Kiran</a>
+
+        </footer>
+      </div>
+
+
+
+        <script>
+          let sidebar = document.querySelector(".sidebar");
+          let sidebarBtn = document.querySelector(".sidebarBtn");
+          sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+              sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+              sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+          }
+        </script>
+
+
+
+
+</body>
+
+</html>
